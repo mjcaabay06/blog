@@ -1,0 +1,26 @@
+<input type="text" id="url" value="">
+<button id="btn-get">Click</button>
+
+<pre>
+	<div>Url: <div id="url-dis"></div></div>
+	<div>Title: <div id="title"></div></div>
+	<div>Description: <div id="des"></div></div>
+	<div>Image: <div><img id="img" /></div></div>
+</pre>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#btn-get").on("click", function(){
+			$.ajax({
+				url: 'test/get-meta',
+				type: 'GET',
+				data: { url: $("#url").val() },
+				success: function(response){
+					$("#url-dis").html(response.url);
+					$("#title").html(response.title);
+					$("#des").html(response.description);
+					$("#img").attr('src', response.meta_tags['property']['og:image'][0]);
+				}
+			});	
+		});
+	});
+</script>
